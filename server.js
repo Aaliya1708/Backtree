@@ -7,7 +7,7 @@ const port = 3060;
 const searchGoogle = require('./searchGoogle');
 
 btreedb.con.connect(function(err){
-    if(err) throw err;
+    //if(err) throw err;
 });
 
 
