@@ -19,7 +19,7 @@ const searchGoogle = async (searchQuery) => {
 
     const browser = await puppeteer.launch({
         executablePath: 'chrome.exe',
-        headless: false
+        headless: true
         });
 
 
