@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 });
 
 
-app.post('/insert', (req, res) => {
+app.get('/insert', (req, res) => {
     //const insertqs = request.query.insertqueries;
     //multiGoogleSearch(insertqs)
     //.then(function(results){
