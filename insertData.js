@@ -1,14 +1,16 @@
 const btree = require("./bptree.js");
-const mysql = require("mysql");
+
 const util = require("util");
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "123456",
-    database: 'project'
+const {Client, Pool} = require('pg');
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'project',
+  password: 'aaliya',
+  port: 5432,
 });
 
-const query = util.promisify(con.query).bind(con);
+const query = util.promisify(pool.query).bind(pool);
 
 var traverse = async function(cursor,dpt=0,gap=0,return_value=0){
     if (btree.max_depth<dpt)btree.max_depth=dpt;
@@ -54,7 +56,9 @@ var insertt = async function(node){
     var sql = 'SELECT * FROM websites';
     console.log("called");
     var data = await query(sql) ;//,function(err,result){
-    for(val of data)
+    console.log("HI");
+    console.log(data.rows);
+    for(val of data.rows)
       node.insert(val.search_word);
     //     if(err) throw err;
     //     console.log("fetched");
@@ -90,10 +94,10 @@ var main = async function() {
     
     
     
-    node.search(15);
-    node.search(115);
+    //node.search(15);
+    //node.search(115);
 }
-con.connect((err)=>{
+pool.connect((err)=>{
     if(err) throw err;
 
     main();

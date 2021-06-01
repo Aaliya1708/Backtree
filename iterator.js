@@ -1,16 +1,16 @@
-const mysql=require('mysql');
+const {Client, Pool} = require('pg');
 const searchGoogle = require('./searchGoogle');
 var a = require('./search_words.json');
 
 
-var con = mysql.createConnection({
-   host: "localhost",
-   user: "root",
-   password: "123456",
-   database: "project"
+const pool = new Pool({
+   user: 'postgres',
+   host: 'localhost',
+   database: 'project',
+   password: 'aaliya',
+   port: 5432,
  });
  
-
 
 
 //console.log(fs.readFile('./search_words.json'));
@@ -28,7 +28,7 @@ let main = async function(){
          var sql = `INSERT INTO websites (ind, search_word, title, description, url) VALUES (${cnt}, '${item.replace(/[^a-z 0-9]/gi,'')}', '${results[0].title.replace(/[^a-z 0-9]/gi,'')}', '${results[0].description.replace(/[^a-z 0-9]/gi,'')}', '${results[0].url}')`;
          cnt++;
          console.log(sql);
-         con.query(sql, function (err, result) {
+         pool.query(sql, function (err, result) {
             if (err) throw err;
             console.log("1 record inserted");
          });
@@ -38,7 +38,7 @@ let main = async function(){
 };
 //main();
 
-con.connect(function(err) {
+pool.connect(function(err) {
    if (err) throw err;
    console.log("Connected!");
    

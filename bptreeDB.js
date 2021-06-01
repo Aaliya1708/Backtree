@@ -1,21 +1,23 @@
-const mysql=require('mysql');
 const util = require('util');
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "123456",
-    database: "project"
-  });
+const {Client, Pool} = require('pg');
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'project',
+  password: 'aaliya',
+  port: 5432,
+});
+
 var rr;
 var MAX=7;
-const query = util.promisify(con.query).bind(con);
+const query = util.promisify(pool.query).bind(pool);
 
 
 var fetch_record = async function(i){
-    //var sql = `SELECT tree_index FROM location ORDER BY tree_index LIMIT ${i},1`;  
+    //var sql = `SELECT tree_index FROM location ORDER BY tree_index LIMIT 1 OFFSET ${i}`;  
    // UPDATE customers SET address = 'Canyon 123' WHERE address = 'Valley 345'
-    let data = await query(`SELECT * FROM location ORDER BY tree_index LIMIT ${i},1`);
-    return data;
+    let data = await query(`SELECT * FROM location ORDER BY tree_index LIMIT 1 OFFSET ${i}`);
+    return data.rows;
 }
 
 var insert_data = async function(ind, search_word, title, description, url){
@@ -23,10 +25,10 @@ var insert_data = async function(ind, search_word, title, description, url){
 }
 
 var insert_loc = async function(i, search_word, db_index){
-  //var sql = `SELECT tree_index FROM location ORDER BY tree_index LIMIT ${i},1`;  
+  //var sql = `SELECT tree_index FROM location ORDER BY tree_index LIMIT 1 OFFSET ${i}`;  
   
-  let data = await query(`UPDATE locations * FROM location ORDER BY tree_index LIMIT ${i},1`);
-  return data;
+  let data = await query(`UPDATE locations * FROM location ORDER BY tree_index LIMIT 1 OFFSET ${i}`);
+  return data.rows;
 }
 
 /*
@@ -271,36 +273,36 @@ var fetch_info = async function(i){
   return data;
 } 
 
-// con.connect(function(err)
-// {
-//     if(err) throw err;
-//     console.log("Connected!");
-//     var main = async function(){
-//         // for(var i=0;i<=35;i++)
-//         // {
-//         //     //console.log(fetch_record(i));
-//         //     console.log(await fetch_record(i));
-//         // }
-//         var res = await search('pizza');
-//         console.log(res);
-//         if(res.length > 0){
-//           console.log(res[0].db_index);
-//         var  result = await fetch_info(res[0].db_index);
-//         console.log(result);
-//         }
-//         //await search(33);
-//         //await search(4);
-//         res = await search('cake');
-//         console.log(res);
-//         if(res.length > 0){
-//           var  result = await fetch_info(res.db_index);
-//           console.log(result);
-//           }
+pool.connect(function(err)
+{
+    if(err) throw err;
+    console.log("Connected!");
+    var main = async function(){
+        // for(var i=0;i<=35;i++)
+        // {
+        //     //console.log(fetch_record(i));
+        //     console.log(await fetch_record(i));
+        // }
+        var res = await search('pizza');
+        console.log(res);
+        if(res.length > 0){
+          console.log(res[0].db_index);
+        var  result = await fetch_info(res[0].db_index);
+        console.log(result);
+        }
+        //await search(33);
+        //await search(4);
+        res = await search('aaliya');
+        console.log(res);
+        if(res.length > 0){
+          var  result = await fetch_info(res.db_index);
+          console.log(result);
+          }
         
 
-//     };
-//     main();
-// });
+    };
+    main();
+});
 
 
 var searchDB = async function(x){
@@ -319,4 +321,4 @@ var searchDB = async function(x){
   }
   return {"searchTree": res.searchTree, "result":result};
 } 
-module.exports = {con, query,  searchDB};
+//module.exports = {pool, query,  searchDB};

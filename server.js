@@ -22,18 +22,6 @@ app.use(express.static(__dirname+'/build'));
 
 app.get('/search', (request, response) => {
     const searchQuery = request.query.searchquery;
-    // if(searchQuery != null)
-    // {
-    //     searchGoogle(searchQuery)
-    //     .then(results => {
-    //         response.status(200);
-    //         response.json(results);
-    //     });
-    // }
-    // else
-    // {
-    //   response.end();
-    // }
     if(searchQuery!=null){
 
 
@@ -66,6 +54,13 @@ app.get('/', (req, res) => {
 
 });
 
+
+app.post('/insert', (req, res) => {
+    const insert = request.query.insertquery;
+    // puppeter google search
+    // bptree
+    // db insert  ( BP)TREE INSERT
+});
 
 app.listen(process.env.PORT || port, () => console.log(`Example app listening on port ${port}! \n connect at http://localhost:${port}/`));
 
