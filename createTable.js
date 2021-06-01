@@ -1,12 +1,4 @@
-const {Client, Pool} = require('pg');
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'project',
-  password: 'aaliya',
-  port: 5432,
-});
-
+const {pool} = require('./config');
 
 pool.connect(function(err) {
  if (err) throw err;

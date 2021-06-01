@@ -1,5 +1,19 @@
 const puppeteer = require('puppeteer');
 
+const multiGoogleSearch = async (searchQueries) => {
+    
+    var results = [];
+
+    for(searchQuery of searchQueries){
+        result = await searchGoogle();
+        results.push(result);
+    }
+
+    return results;
+    
+}
+
+
 const searchGoogle = async (searchQuery) => {
     
 
@@ -75,7 +89,7 @@ const searchGoogle = async (searchQuery) => {
 
 };
 
-module.exports = searchGoogle;
+module.exports = { searchGoogle, multiGoogleSearch};
 
 //searchGoogle('cats');
 

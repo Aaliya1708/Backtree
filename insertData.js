@@ -1,14 +1,7 @@
 const btree = require("./bptree.js");
 
 const util = require("util");
-const {Client, Pool} = require('pg');
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'project',
-  password: 'aaliya',
-  port: 5432,
-});
+const {pool} = require('./config');
 
 const query = util.promisify(pool.query).bind(pool);
 
@@ -52,12 +45,13 @@ var traverse = async function(cursor,dpt=0,gap=0,return_value=0){
   }
 }
 
-var insertt = async function(node){
+var insertt = async function(){
+    var node = new btree.BPTree();
     var sql = 'SELECT * FROM websites';
     console.log("called");
     var data = await query(sql) ;//,function(err,result){
-    console.log("HI");
-    console.log(data.rows);
+    //console.log("HI");
+    //console.log(data.rows);
     for(val of data.rows)
       node.insert(val.search_word);
     //     if(err) throw err;
@@ -67,6 +61,7 @@ var insertt = async function(node){
     // });
     await traverse(node.getRoot());
     console.log(data);
+    return true;
 }
 var main = async function() {
     var node = new btree.BPTree();
@@ -97,10 +92,10 @@ var main = async function() {
     //node.search(15);
     //node.search(115);
 }
-pool.connect((err)=>{
-    if(err) throw err;
+// pool.connect((err)=>{
+//     if(err) throw err;
 
-    main();
-});  
+//     main();
+// });  
 
-  
+module.exports = insertt;

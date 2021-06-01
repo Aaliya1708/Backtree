@@ -4,9 +4,11 @@ const fs=require('fs');
 const btreedb = require('./bptreeDB');
 const app = express();
 const port = 3060;
-const searchGoogle = require('./searchGoogle');
+const multiGoogleSearch = require('./searchGoogle');
+const dummyCollect = require('./iterator');
+const insertt = require('./insertData');
 
-btreedb.con.connect(function(err){
+btreedb.pool.connect(function(err){
     //if(err) throw err;
 });
 
@@ -24,14 +26,12 @@ app.get('/search', (request, response) => {
     const searchQuery = request.query.searchquery;
     if(searchQuery!=null){
 
-
         btreedb.searchDB(searchQuery)
         .then(results => {
             response.status(200);
             response.json(results);
             
         });
-        
         
     }
     else
@@ -56,7 +56,20 @@ app.get('/', (req, res) => {
 
 
 app.post('/insert', (req, res) => {
-    const insert = request.query.insertquery;
+    //const insertqs = request.query.insertqueries;
+    //multiGoogleSearch(insertqs)
+    //.then(function(results){
+    dummyCollect().then(() => {
+        insertt().then(function(ret){
+            res.status(204);
+            res.json({info: "Completed"});
+        });
+    });
+
+    
+
+        
+
     // puppeter google search
     // bptree
     // db insert  ( BP)TREE INSERT
