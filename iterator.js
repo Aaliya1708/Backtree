@@ -49,14 +49,14 @@ var collectData = async function(inputq){
 };
 //main();
 
-// pool.connect(function(err) {
-//    if (err) throw err;
-//    console.log("Connected!");
+pool.connect(function(err) {
+   if (err) throw err;
+   console.log("Connected!");
    
-//    main();
-// });
+   dummyCollect();
+});
 
 //console.log(a);
 
 
-module.exports = dummyCollect;
+//module.exports = dummyCollect;

@@ -5,8 +5,8 @@ const btreedb = require('./bptreeDB');
 const app = express();
 const port = 3060;
 const multiGoogleSearch = require('./searchGoogle');
-const dummyCollect = require('./iterator');
-const insertt = require('./insertData');
+// const dummyCollect = require('./iterator');
+// const insertt = require('./insertData');
 const {pool} = require('./config');
 
 
@@ -57,25 +57,25 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/insert', (req, res) => {
-    //const insertqs = request.query.insertqueries;
-    //multiGoogleSearch(insertqs)
-    //.then(function(results){
-    dummyCollect().then(() => {
-        insertt().then(function(ret){
-            res.status(204);
-            res.json({info: "Completed"});
-        });
-    });
+// app.get('/insert', (req, res) => {
+//     //const insertqs = request.query.insertqueries;
+//     //multiGoogleSearch(insertqs)
+//     //.then(function(results){
+//     dummyCollect().then(() => {
+//         insertt().then(function(ret){
+//             res.status(204);
+//             res.json({info: "Completed"});
+//         });
+//     });
 
     
 
         
 
-    // puppeter google search
-    // bptree
-    // db insert  ( BP)TREE INSERT
-});
+//     // puppeter google search
+//     // bptree
+//     // db insert  ( BP)TREE INSERT
+// });
 
 app.listen(process.env.PORT || port, () => console.log(`Example app listening on port ${port}! \n connect at http://localhost:${port}/`));
 

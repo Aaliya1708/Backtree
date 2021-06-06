@@ -83,7 +83,7 @@ var main = async function() {
     */
     //node.display(node.getRoot());
    
-    await insertt(node);
+    await insertt();
     //console.log(MAX);
     
     
@@ -92,10 +92,10 @@ var main = async function() {
     //node.search(15);
     //node.search(115);
 }
-// pool.connect((err)=>{
-//     if(err) throw err;
+pool.connect((err)=>{
+    if(err) throw err;
 
-//     main();
-// });  
+    main();
+});  
 
 module.exports = insertt;
