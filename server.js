@@ -9,7 +9,7 @@ const dummyCollect = require('./iterator');
 const insertt = require('./insertData');
 
 btreedb.pool.connect(function(err){
-    //if(err) throw err;
+    if(err) throw err;
 });
 
 
