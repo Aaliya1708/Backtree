@@ -171,4 +171,4 @@ var searchDB = async function(x){
   }
   return {"searchTree": res.searchTree, "result":result};
 } 
-module.exports = {pool, query,  searchDB};
+module.exports = {query,  searchDB};

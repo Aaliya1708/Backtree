@@ -7,8 +7,10 @@ const port = 3060;
 const multiGoogleSearch = require('./searchGoogle');
 const dummyCollect = require('./iterator');
 const insertt = require('./insertData');
+const {pool} = require('./config');
 
-btreedb.pool.connect(function(err){
+
+pool.connect(function(err){
     if(err) throw err;
 });
 
